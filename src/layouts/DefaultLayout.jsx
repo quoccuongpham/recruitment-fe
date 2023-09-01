@@ -9,7 +9,7 @@ const DefaultLayout = ({ children }) => {
             sx={{
                 backgroundImage: `url(${background})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
+                backgroundSize: "contain",
                 minHeight: "1000px",
             }}
         >

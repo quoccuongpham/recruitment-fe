@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const CompanyCard = ({ name }) => {
     return (
@@ -8,9 +8,26 @@ const CompanyCard = ({ name }) => {
                 minHeight: "264px",
                 minWidth: "200px",
                 borderRadius: "6px",
+                textAlign: "center",
             }}
         >
-            {name}
+            <Box
+                width="100%"
+                minHeight="80%"
+                sx={{ backgroundColor: "#ccc" }}
+                borderRadius="6px 6px 0 0"
+            ></Box>
+            <Typography
+                variant="p"
+                fontWeight="bold"
+                noWrap={false}
+                padding={1}
+                marginTop={1}
+                textTransform="uppercase"
+                display="block"
+            >
+                {name}
+            </Typography>
         </Box>
     );
 };
