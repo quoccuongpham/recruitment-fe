@@ -1,7 +1,9 @@
 import { Container } from "@mui/material";
+import { useLoaderData } from "react-router-dom";
 import Header from "./Header";
 import background from "../assets/background.svg";
 const DefaultLayout = ({ children }) => {
+    const userInfo = useLoaderData();
     return (
         <Container
             disableGutters
@@ -13,7 +15,7 @@ const DefaultLayout = ({ children }) => {
                 minHeight: "1000px",
             }}
         >
-            <Header />
+            <Header isLogin={userInfo.success} />
             {children}
         </Container>
     );

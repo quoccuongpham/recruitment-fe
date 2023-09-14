@@ -3,6 +3,7 @@ import { blue } from "@mui/material/colors";
 import DefaultLayout from "../layouts/DefaultLayout";
 import CompanyCard from "../components/home/company_card";
 import JobItem from "../components/home/job_item";
+
 //? Example data
 const company = [
     { name: "MERCEDES-BENZ VIETNAM" },
@@ -15,7 +16,7 @@ const company = [
 const ex_job = [];
 for (let i = 1; i <= 9; i++) {
     ex_job.push(
-        <Grid item xs={4}>
+        <Grid item xs={4} key={i}>
             <JobItem />
         </Grid>
     );
@@ -32,7 +33,7 @@ function Home() {
                     paddingBottom: 8,
                 }}
                 disableGutters
-                maxWidth
+                maxWidth="xl"
                 display={{ xs: "none", md: "block" }}
             >
                 <Typography
@@ -63,7 +64,7 @@ function Home() {
                     paddingTop: 4,
                 }}
                 disableGutters
-                maxWidth
+                maxWidth="xl"
             >
                 <Grid
                     container

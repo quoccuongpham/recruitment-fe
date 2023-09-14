@@ -253,22 +253,17 @@ export default function Header({ isLogin }) {
                     <Box sx={{ display: { md: "block", xs: "none" } }}>
                         <Link to="/jobs">
                             <Button sx={{ color: "#fff", marginRight: "10px" }}>
-                                Việc làm
+                                Tìm kiếm ứng viên
                             </Button>
                         </Link>
                         <Link>
                             <Button sx={{ color: "#fff", marginRight: "10px" }}>
-                                Công ty
+                                Đăng việc làm
                             </Button>
                         </Link>
                         <Link>
                             <Button sx={{ color: "#fff", marginRight: "10px" }}>
-                                Nghề nghiệp
-                            </Button>
-                        </Link>
-                        <Link>
-                            <Button sx={{ color: "#fff", marginRight: "10px" }}>
-                                Việc của tôi
+                                Việc đã đăng
                             </Button>
                         </Link>
                     </Box>
