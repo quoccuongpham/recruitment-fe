@@ -1,6 +1,6 @@
 import { Container, Typography, Stack, Grid, Button } from "@mui/material";
 import { blue } from "@mui/material/colors";
-import DefaultLayout from "../layouts/DefaultLayout";
+import DefaultLayout from "../layouts/Default/DefaultLayout.jsx";
 import CompanyCard from "../components/home/company_card";
 import JobItem from "../components/home/job_item";
 

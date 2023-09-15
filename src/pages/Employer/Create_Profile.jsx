@@ -20,7 +20,7 @@ const VisuallyHiddenInput = styled('input')`
 `;
 const Create_Profile = () => {
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        // <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Container maxWidth disableGutters>
                 <Typography variant="body1" fontWeight="bold" fontSize="20px" maxWidth={true} textAlign="center" paddingBottom="20px">
                     Thiết lập hồ sơ
@@ -65,7 +65,7 @@ const Create_Profile = () => {
                     </Box>
                 </Form>
             </Container>
-        </LocalizationProvider>
+        // </LocalizationProvider>
     );
 };
 

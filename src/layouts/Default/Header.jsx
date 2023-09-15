@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import LoginIcon from "@mui/icons-material/Login";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import LinkStyled from "../../utils/styled_component/LinkStyled";
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -228,18 +229,20 @@ export default function Header({ isLogin }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        textAlign="center"
-                        marginRight={5}
-                        sx={{
-                            display: { xs: "none", sm: "block" },
-                        }}
-                    >
-                        ReCr.
-                    </Typography>
+                    <LinkStyled to="/">
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            textAlign="center"
+                            marginRight={5}
+                            sx={{
+                                display: { xs: "none", sm: "block" },
+                            }}
+                        >
+                            ReCr.
+                        </Typography>
+                    </LinkStyled>
 
                     <Search>
                         <SearchIconWrapper>

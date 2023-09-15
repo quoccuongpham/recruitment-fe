@@ -1,14 +1,28 @@
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import axios from "axios";
 import { TextField, Button } from "@mui/material";
 
-import handleLogin from "../../features/Auth/login";
-import { useState } from "react";
+import { redirect, Form } from "react-router-dom";
 
+export const action = async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    try {
+        const result = await axios.post("/auth/login", data, {
+            withCredentials: true,
+        });
+        if (result.data.success) {
+            return redirect("/");
+        }
+        return null;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     return (
         <Container
             sx={{
@@ -22,40 +36,24 @@ const Login = () => {
                 <Typography textAlign="center" paddingBottom="20px">
                     Login page
                 </Typography>
-                <Box
-                    component="form"
-                    sx={{ backgroundColor: "#fff" }}
-                    width={{ lg: "300px" }}
-                >
+                <Form method="post">
                     <TextField
+                        name="email"
                         placeholder="Email"
                         fullWidth={true}
                         sx={{ marginBottom: "15px" }}
-                        value={email}
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                        }}
                     ></TextField>
                     <TextField
+                        name="password"
                         placeholder="Password"
                         type="password"
                         fullWidth={true}
                         sx={{ marginBottom: "15px" }}
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                        }}
                     ></TextField>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        onClick={() => {
-                            handleLogin({ email, password });
-                        }}
-                    >
+                    <Button fullWidth variant="contained" type="submit">
                         Login
                     </Button>
-                </Box>
+                </Form>
             </Box>
         </Container>
     );
