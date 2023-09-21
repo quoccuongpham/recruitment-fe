@@ -5,7 +5,6 @@ import background from "../../assets/background.svg";
 import { Navigate } from "react-router-dom";
 const DefaultLayout = ({ children }) => {
     const userInfo = useLoaderData();
-    console.log(userInfo);
     return userInfo.user_type_id == 1 ? (
         <Container
             disableGutters

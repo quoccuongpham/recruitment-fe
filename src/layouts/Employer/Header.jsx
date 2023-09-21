@@ -264,7 +264,7 @@ export default function Header({ isLogin }) {
                                 Đăng việc làm
                             </Button>
                         </Link>
-                        <Link>
+                        <Link to="/employer/job-posted">
                             <Button sx={{ color: "#fff", marginRight: "10px" }}>
                                 Việc đã đăng
                             </Button>

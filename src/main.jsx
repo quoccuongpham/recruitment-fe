@@ -20,7 +20,9 @@ import PostJob, {
 import FindWorker, {
     action as FindWorkerAction,
 } from "./pages/Employer/FindWorker.jsx";
-
+import JobPosted, {
+    loader as JobPostedLoader,
+} from "./pages/Employer/JobPosted.jsx";
 //* config axios
 axios.defaults.baseURL = "http://localhost:3000";
 // axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -61,6 +63,11 @@ const router = createBrowserRouter([
                 path: "/employer/find-worker",
                 action: FindWorkerAction,
                 element: <FindWorker />,
+            },
+            {
+                path: "/employer/job-posted",
+                loader: JobPostedLoader,
+                element: <JobPosted />,
             },
         ],
     },
