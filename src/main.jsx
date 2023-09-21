@@ -23,6 +23,10 @@ import FindWorker, {
 import JobPosted, {
     loader as JobPostedLoader,
 } from "./pages/Employer/JobPosted.jsx";
+// Employee
+import EmployeeLayout from "./layouts/Employee/EmployeeLayout.jsx";
+import Job, { loader as employee_job_loader } from "./pages/Employee/Job.jsx";
+
 //* config axios
 axios.defaults.baseURL = "http://localhost:3000";
 // axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -68,6 +72,18 @@ const router = createBrowserRouter([
                 path: "/employer/job-posted",
                 loader: JobPostedLoader,
                 element: <JobPosted />,
+            },
+        ],
+    },
+    {
+        path: "/employee",
+        element: <EmployeeLayout />,
+        loader: home_loader,
+        children: [
+            {
+                path: "/employee/job",
+                element: <Job />,
+                loader: employee_job_loader,
             },
         ],
     },

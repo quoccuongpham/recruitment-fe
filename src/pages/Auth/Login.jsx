@@ -6,6 +6,8 @@ import { TextField, Button } from "@mui/material";
 
 import { redirect, Form } from "react-router-dom";
 
+import LinkStyled from "../../utils/styled_component/LinkStyled";
+
 export const action = async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
@@ -33,7 +35,12 @@ const Login = () => {
             }}
         >
             <Box>
-                <Typography textAlign="center" paddingBottom="20px">
+                <Typography
+                    textAlign="center"
+                    paddingBottom="20px"
+                    fontSize="30px"
+                    fontWeight={700}
+                >
                     Login page
                 </Typography>
                 <Form method="post">
@@ -54,6 +61,12 @@ const Login = () => {
                         Login
                     </Button>
                 </Form>
+                <Typography paddingTop={3}>
+                    Không có tài khoản?{" "}
+                    <Typography variant="span" fontWeight={700} color="#0049B7">
+                        <LinkStyled to="/auth/register">Đăng ký</LinkStyled>
+                    </Typography>
+                </Typography>
             </Box>
         </Container>
     );

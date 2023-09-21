@@ -9,6 +9,7 @@ const JobItem = ({ info }) => {
                     "&:hover": {
                         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
                     },
+                    background: "#fff",
                 }}
                 height="100%"
                 display="flex"
