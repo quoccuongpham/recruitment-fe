@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 

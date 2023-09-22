@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import LinkStyled from "../utils/styled_component/LinkStyled";
 const JobItem = ({ info }) => {
     return (
-        <LinkStyled>
+        <LinkStyled to={`/employee/detail-job/${info.id}`}>
             <Box
                 sx={{
                     border: "1px solid #eee",

@@ -26,7 +26,9 @@ import JobPosted, {
 // Employee
 import EmployeeLayout from "./layouts/Employee/EmployeeLayout.jsx";
 import Job, { loader as employee_job_loader } from "./pages/Employee/Job.jsx";
-
+import DetailJob, {
+    loader as detail_job_loader,
+} from "./pages/Employee/DetailJob.jsx";
 //* config axios
 axios.defaults.baseURL = "http://localhost:3000";
 // axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -84,6 +86,11 @@ const router = createBrowserRouter([
                 path: "/employee/job",
                 element: <Job />,
                 loader: employee_job_loader,
+            },
+            {
+                path: "/employee/detail-job/:id",
+                element: <DetailJob />,
+                loader: detail_job_loader,
             },
         ],
     },
