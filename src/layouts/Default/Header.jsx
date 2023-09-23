@@ -101,7 +101,7 @@ export default function Header({ isLogin }) {
             onClose={handleMenuClose}
         >
             <Link
-                to="/employer/profile"
+                to="/employee/profile"
                 style={{
                     textDecoration: "none",
                     color: "inherit",

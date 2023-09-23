@@ -1,14 +1,24 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import axios from "axios";
-import { useLoaderData } from "react-router-dom";
+import {useActionData, useLoaderData} from "react-router-dom";
 import background from "../../assets/company.png";
+import { Form } from "react-router-dom";
 export async function loader({ params }) {
     const data = await axios.get(`/employee/job-detail/${params.id}`);
     return data.data;
 }
+export async function action({request}) {
+    try {
+        let formData = await request.formData();
+        formData = Object.fromEntries(formData);
+        const rs = await axios.post("/employee/apply", formData);
+        return formData;
+    } catch (err) {
+        return {success: false};
+    }
+}
 const DetailJob = () => {
     const info_job = useLoaderData();
-    console.log(info_job);
     return (
         <Container>
             <Container
@@ -60,7 +70,9 @@ const DetailJob = () => {
                         </Box>
                     </Grid>
                     <Grid item xs={2}>
-                        <Button variant="contained">Nộp đơn</Button>
+                        <Form method="post">
+                            <Button variant="contained" name="id_job" value={info_job.id} type="submit">Nộp đơn</Button>
+                        </Form>
                     </Grid>
                 </Grid>
             </Container>

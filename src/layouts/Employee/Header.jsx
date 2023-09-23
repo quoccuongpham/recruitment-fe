@@ -101,7 +101,7 @@ export default function Header({ isLogin }) {
             onClose={handleMenuClose}
         >
             <Link
-                to="/employer/profile"
+                to="/employee/profile"
                 style={{
                     textDecoration: "none",
                     color: "inherit",
@@ -254,7 +254,7 @@ export default function Header({ isLogin }) {
                         />
                     </Search>
                     <Box sx={{ display: { md: "block", xs: "none" } }}>
-                        <Link to="/jobs">
+                        <Link to="/employee/job">
                             <Button sx={{ color: "#fff", marginRight: "10px" }}>
                                 Việc làm
                             </Button>
