@@ -1,9 +1,10 @@
 import Typography from "@mui/material/Typography";
-import { Button, Container, Grid } from "@mui/material";
+import { Button, Container, Grid, Box } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
 import axios from "axios";
 
 import ProfileExperience from "../../components/Employee/profile-experience";
+import ProfileAvatar from "../../components/Employee/profile-avatar";
 
 export async function loader() {
     const result = await axios.get("/employee/profile");
@@ -24,12 +25,14 @@ const Profile = () => {
                 boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
             }}
         >
+            <ProfileAvatar />
             <Typography
                 variant="p"
                 display="block"
                 fontWeight="bold"
                 fontSize="20px"
                 marginBottom={2}
+                marginTop={2}
             >
                 Thông tin chung
             </Typography>
