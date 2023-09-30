@@ -30,7 +30,9 @@ import DetailJob, {
     loader as detail_job_loader,
     action as detail_job_action,
 } from "./pages/Employee/DetailJob.jsx";
-import EmployeeProfile from "./pages/Employee/Profile.jsx";
+import EmployeeProfile, {
+    loader as employee_profile_loader,
+} from "./pages/Employee/Profile.jsx";
 import EmployeeCreateProfile, {
     action as employee_create_profile_action,
 } from "./pages/Employee/create-profile.jsx";
@@ -103,6 +105,7 @@ const router = createBrowserRouter([
             {
                 path: "/employee/profile",
                 element: <EmployeeProfile />,
+                loader: employee_profile_loader,
             },
             {
                 path: "/employee/create-profile",
