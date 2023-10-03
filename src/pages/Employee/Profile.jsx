@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import { Button, Container, Grid, Box } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
 import axios from "axios";
 
@@ -8,12 +8,13 @@ import ProfileAvatar from "../../components/Employee/profile-avatar";
 
 export async function loader() {
     const result = await axios.get("/employee/profile");
+
     return result.data;
 }
 
 const Profile = () => {
     const info_profile = useLoaderData();
-    console.log(info_profile);
+
     return !info_profile ? (
         <h1>loading...</h1>
     ) : (
@@ -25,7 +26,7 @@ const Profile = () => {
                 boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
             }}
         >
-            <ProfileAvatar />
+            <ProfileAvatar url={info_profile[0].user_image} />
             <Typography
                 variant="p"
                 display="block"
@@ -51,7 +52,6 @@ const Profile = () => {
                         {info_profile[0].contact_number}
                     </Typography>
                 </Grid>
-
                 <Grid item xs={6}>
                     Ngày sinh:{" "}
                     <Typography fontWeight="bold" variant="p">

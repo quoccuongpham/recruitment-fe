@@ -1,33 +1,58 @@
-import { Container, Box, Button, Stack } from "@mui/material";
-import styled from "@emotion/styled";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import avatar_image from "../../assets/avatar-default.jpg";
+import { Container, Box, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-});
+import defaultAvatar from "../../assets/avatar-default.jpg";
+import axios from "axios";
+import { useState } from "react";
 
-const ProfileAvatar = () => {
-    const handleChange = (e) => {
-        console.log(e.target.value);
+const ProfileAvatar = ({ url }) => {
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [hiddenUpload, setHiddenUpload] = useState(true);
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+        if (event.target.files[0]) {
+            setHiddenUpload(false);
+        }
+    };
+    const navigate = useNavigate();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!selectedFile) {
+            alert("Vui lòng chọn một tệp ảnh");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("avatar", selectedFile);
+
+        try {
+            await axios.post(
+                "http://localhost:3000/employee/avatar",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            alert("Upload thành công");
+            navigate(0);
+        } catch (error) {
+            alert("Có lỗi xảy ra khi upload ảnh");
+            console.error(error);
+        }
     };
     return (
         <Container disableGutters>
-            <Stack flexDirection="column" alignItems="start" rowGap={2}>
+            <Stack flexDirection="column" rowGap={2}>
                 <Box
                     height={150}
                     width={150}
                     sx={{
-                        backgroundImage: `url(${avatar_image})`,
-                        backgroundSize: "contain",
+                        backgroundImage: `url(${url ?? defaultAvatar})`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
                         "&:hover": {
                             // opacity: 0.5,
                             // backgroundColor: "#ccc",
@@ -38,16 +63,16 @@ const ProfileAvatar = () => {
                     border="1px solid #eee"
                     component="button"
                 ></Box>
-                <Button
-                    component="label"
-                    variant="contained"
-                    startIcon={<CloudUploadIcon />}
-                    size="small"
-                    sx={{ width: "150px" }}
-                >
-                    Thêm ảnh
-                    <VisuallyHiddenInput type="file" onChange={handleChange} />
-                </Button>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                    />
+                    <button type="submit" hidden={hiddenUpload}>
+                        Lưu
+                    </button>
+                </form>
             </Stack>
         </Container>
     );
