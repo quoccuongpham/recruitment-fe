@@ -1,5 +1,5 @@
 import * as React from "react";
-import {styled, alpha} from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,12 +16,12 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LoginIcon from "@mui/icons-material/Login";
-import {Button} from "@mui/material";
-import {Link, redirect, useSubmit} from "react-router-dom";
+import { Button } from "@mui/material";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import LinkStyled from "../../utils/styled_component/LinkStyled";
 import axios from "axios";
 
-const Search = styled("div")(({theme}) => ({
+const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -37,7 +37,7 @@ const Search = styled("div")(({theme}) => ({
     },
 }));
 
-const SearchIconWrapper = styled("div")(({theme}) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: "100%",
     position: "absolute",
@@ -47,7 +47,7 @@ const SearchIconWrapper = styled("div")(({theme}) => ({
     justifyContent: "center",
 }));
 
-const StyledInputBase = styled(InputBase)(({theme}) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     "& .MuiInputBase-input": {
         padding: theme.spacing(1, 1, 1, 0),
@@ -66,10 +66,10 @@ export async function action() {
     return redirect("/auth/login");
 }
 
-export default function Header({isLogin}) {
+export default function Header({ isLogin }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+    const navigate = useNavigate();
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -90,10 +90,10 @@ export default function Header({isLogin}) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
-    const handleSubmit = () => {
-        const submit = useSubmit();
-        submit("/auth/logout");
-    }
+    const handleLogout = async () => {
+        await axios.get("/auth/logout");
+        navigate(0);
+    };
 
     const menuId = "primary-search-account-menu";
     const renderMenu = (
@@ -138,7 +138,7 @@ export default function Header({isLogin}) {
                     display: isLogin ? "block" : "none",
                 }}
             >
-                <MenuItem onClick={handleMenuClose}>
+                <MenuItem onClick={handleLogout}>
                     <Typography color="#EB6767" fontWeight="bold">
                         Logout
                     </Typography>
@@ -192,7 +192,7 @@ export default function Header({isLogin}) {
                     color="inherit"
                 >
                     <Badge badgeContent={4} color="error">
-                        <MailIcon/>
+                        <MailIcon />
                     </Badge>
                 </IconButton>
                 <p>Messages</p>
@@ -204,7 +204,7 @@ export default function Header({isLogin}) {
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                        <NotificationsIcon/>
+                        <NotificationsIcon />
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -217,7 +217,7 @@ export default function Header({isLogin}) {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle/>
+                    <AccountCircle />
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -225,10 +225,10 @@ export default function Header({isLogin}) {
     );
 
     return (
-        <Box sx={{flexGrow: 1, marginBottom: "80px"}}>
+        <Box sx={{ flexGrow: 1, marginBottom: "80px" }}>
             <AppBar
                 position="static"
-                sx={{backgroundColor: "transparent"}}
+                sx={{ backgroundColor: "transparent" }}
                 elevation={0}
             >
                 <Toolbar>
@@ -237,9 +237,9 @@ export default function Header({isLogin}) {
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{mr: 2, display: {md: "none"}}}
+                        sx={{ mr: 2, display: { md: "none" } }}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
                     <LinkStyled to="/">
                         <Typography
@@ -249,7 +249,7 @@ export default function Header({isLogin}) {
                             textAlign="center"
                             marginRight={5}
                             sx={{
-                                display: {xs: "none", sm: "block"},
+                                display: { xs: "none", sm: "block" },
                             }}
                         >
                             ReCr.
@@ -258,44 +258,44 @@ export default function Header({isLogin}) {
 
                     <Search>
                         <SearchIconWrapper>
-                            <SearchIcon/>
+                            <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
-                            inputProps={{"aria-label": "search"}}
+                            inputProps={{ "aria-label": "search" }}
                         />
                     </Search>
-                    <Box sx={{display: {md: "block", xs: "none"}}}>
+                    <Box sx={{ display: { md: "block", xs: "none" } }}>
                         <Link to="/employee/job">
-                            <Button sx={{color: "#fff", marginRight: "10px"}}>
+                            <Button sx={{ color: "#fff", marginRight: "10px" }}>
                                 Việc làm
                             </Button>
                         </Link>
                         <Link>
-                            <Button sx={{color: "#fff", marginRight: "10px"}}>
+                            <Button sx={{ color: "#fff", marginRight: "10px" }}>
                                 Công ty
                             </Button>
                         </Link>
                         <Link>
-                            <Button sx={{color: "#fff", marginRight: "10px"}}>
+                            <Button sx={{ color: "#fff", marginRight: "10px" }}>
                                 Nghề nghiệp
                             </Button>
                         </Link>
                         <Link>
-                            <Button sx={{color: "#fff", marginRight: "10px"}}>
+                            <Button sx={{ color: "#fff", marginRight: "10px" }}>
                                 Việc của tôi
                             </Button>
                         </Link>
                     </Box>
-                    <Box sx={{flexGrow: 1}}/>
-                    <Box sx={{display: {xs: "none", md: "flex"}}}>
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ display: { xs: "none", md: "flex" } }}>
                         <IconButton
                             size="large"
                             aria-label="show 4 new mails"
                             color="inherit"
                         >
                             <Badge badgeContent={4} color="error">
-                                <MailIcon/>
+                                <MailIcon />
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -304,7 +304,7 @@ export default function Header({isLogin}) {
                             color="inherit"
                         >
                             <Badge badgeContent={17} color="error">
-                                <NotificationsIcon/>
+                                <NotificationsIcon />
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -316,10 +316,10 @@ export default function Header({isLogin}) {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            {isLogin ? <AccountCircle/> : <LoginIcon/>}
+                            {isLogin ? <AccountCircle /> : <LoginIcon />}
                         </IconButton>
                     </Box>
-                    <Box sx={{display: {xs: "flex", md: "none"}}}>
+                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
                         <IconButton
                             size="large"
                             aria-label="show more"
@@ -328,7 +328,7 @@ export default function Header({isLogin}) {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon/>
+                            <MoreIcon />
                         </IconButton>
                     </Box>
                 </Toolbar>
