@@ -3,6 +3,7 @@ import { blue } from "@mui/material/colors";
 import DefaultLayout from "../layouts/Default/DefaultLayout.jsx";
 import CompanyCard from "../components/home/company_card";
 import JobItem from "../components/home/job_item";
+import { useLoaderData } from "react-router-dom";
 
 //? Example data
 const company = [
@@ -22,6 +23,8 @@ for (let i = 1; i <= 9; i++) {
     );
 }
 function Home() {
+    const data_home_loader = useLoaderData();
+    console.log(data_home_loader);
     return (
         <DefaultLayout>
             <Container
@@ -98,7 +101,11 @@ function Home() {
                             </Button>
                         </Typography>
                     </Grid>
-                    {ex_job}
+                    {data_home_loader.jobs.map((item, index) => (
+                        <Grid item xs={4} key={index}>
+                            <JobItem data={item} />
+                        </Grid>
+                    ))}
                 </Grid>
             </Container>
         </DefaultLayout>

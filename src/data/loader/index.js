@@ -8,10 +8,12 @@ export async function employer_list_apply_loader({ params }) {
 
 export const home_loader = async () => {
     const info = await axios.get("/auth");
+    const jobs = await axios.get("/employee/jobs");
     if (info.data.success) {
         return {
             email: info.data.dataValues.email,
             user_type_id: info.data.dataValues.user_type_id,
+            jobs: jobs.data,
         };
     } else {
         return redirect("/auth/login");

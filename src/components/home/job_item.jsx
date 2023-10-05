@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import LinkStyled from "../../utils/styled_component/LinkStyled";
 import company_avatar from "../../assets/company_avatar.avif";
-const JobItem = () => {
+const JobItem = ({ data }) => {
     return (
         <Box display="flex" padding={1}>
             <Box
@@ -15,12 +16,14 @@ const JobItem = () => {
                     backgroundPosition: "center",
                 }}
             ></Box>
-            <Box>
-                <Typography fontWeight="bold">Admin Assistant</Typography>
-                <Typography>Tên công ty</Typography>
-                <Typography>lương</Typography>
-                <Typography>Địa điểm</Typography>
-            </Box>
+            <LinkStyled to={`/employee/detail-job/${data.id}`}>
+                <Box>
+                    <Typography fontWeight="bold">{data.job_title}</Typography>
+                    <Typography>{data.company_name}</Typography>
+                    {/* <Typography>lương</Typography>
+                    <Typography>Địa điểm</Typography> */}
+                </Box>
+            </LinkStyled>
         </Box>
     );
 };
