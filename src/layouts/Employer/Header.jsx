@@ -19,6 +19,8 @@ import LoginIcon from "@mui/icons-material/Login";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import LinkStyled from "../../utils/styled_component/LinkStyled";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -60,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header({ isLogin }) {
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -83,6 +86,10 @@ export default function Header({ isLogin }) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLogout = async () => {
+        await axios.get("/auth/logout");
+        navigate(0);
+    };
     const menuId = "primary-search-account-menu";
     const renderMenu = (
         <Menu
@@ -126,7 +133,7 @@ export default function Header({ isLogin }) {
                     display: isLogin ? "block" : "none",
                 }}
             >
-                <MenuItem onClick={handleMenuClose}>
+                <MenuItem onClick={handleLogout}>
                     <Typography color="#EB6767" fontWeight="bold">
                         Logout
                     </Typography>
