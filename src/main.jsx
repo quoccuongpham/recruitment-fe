@@ -9,7 +9,12 @@ import Jobs from "./pages/Jobs.jsx";
 import Login, { action as LoginAction } from "./pages/Auth/Login.jsx";
 import Register, { action as registerAction } from "./pages/Auth/Register.jsx";
 import ErrorPage from "./pages/error_page.jsx";
-import { home_loader } from "./data/loader.js";
+
+// loader
+import {
+    employer_list_apply_loader,
+    home_loader,
+} from "./data/loader/index.js";
 // Employer
 import Create_Profile from "./pages/Employer/Create_Profile.jsx";
 import EmployerLayout from "./layouts/Employer/EmployerLayout.jsx";
@@ -23,6 +28,7 @@ import FindWorker, {
 import JobPosted, {
     loader as JobPostedLoader,
 } from "./pages/Employer/JobPosted.jsx";
+import ListApply from "./pages/Employer/ListApply.jsx";
 // Employee
 import EmployeeLayout from "./layouts/Employee/EmployeeLayout.jsx";
 import Job, { loader as employee_job_loader } from "./pages/Employee/Job.jsx";
@@ -84,6 +90,11 @@ const router = createBrowserRouter([
                 loader: JobPostedLoader,
                 element: <JobPosted />,
             },
+            {
+                path: "/employer/apply/:id",
+                element: <ListApply />,
+                loader: employer_list_apply_loader,
+            },
         ],
     },
     {
@@ -115,6 +126,7 @@ const router = createBrowserRouter([
         ],
     },
 ]);
+
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <CssBaseline />
