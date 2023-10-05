@@ -21,14 +21,14 @@ const JobItem = ({ info }) => {
                 <Typography variant="h6" marginBottom={2}>
                     {info.job_title}
                 </Typography>
-                <Typography
+                {/* <Typography
                     variant="p"
                     whiteSpace="pre-wrap"
                     flexGrow={1}
                     marginBottom={2}
                 >
                     {info.job_description}
-                </Typography>
+                </Typography> */}
                 <Typography>
                     <Typography variant="span">Hết hạn: </Typography>
                     <Typography variant="spam" fontWeight={600}>
