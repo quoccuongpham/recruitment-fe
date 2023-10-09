@@ -122,6 +122,7 @@ const router = createBrowserRouter([
                 path: "/employee/create-profile",
                 element: <EmployeeCreateProfile />,
                 action: employee_create_profile_action,
+                loader: employee_profile_loader,
             },
         ],
     },

@@ -7,7 +7,7 @@ import {
     Divider,
 } from "@mui/material";
 
-const Education = () => {
+const Education = ({ data, index }) => {
     return (
         <>
             <Grid container rowGap={2} marginBottom={2} marginTop={2}>
@@ -25,7 +25,11 @@ const Education = () => {
                         <TextField
                             placeholder="Tên bằng cấp"
                             fullWidth
-                            name="cetificate_degree_name"
+                            name={`cetificate_degree_name_${index}`}
+                            defaultValue={data?.cetificate_degree_name}
+                            // disabled={
+                            //     data?.cetificate_degree_name ? true : false
+                            // }
                         />
                     </Box>
                 </Grid>
@@ -40,7 +44,13 @@ const Education = () => {
                 >
                     <Box width="80%">
                         <Typography fontWeight={600}>Ngành</Typography>
-                        <TextField placeholder="Ngành" fullWidth name="major" />
+                        <TextField
+                            placeholder="Ngành"
+                            fullWidth
+                            name={`major_${index}`}
+                            defaultValue={data?.major}
+                            // disabled={data?.major ? true : false}
+                        />
                     </Box>
                 </Grid>
                 <Grid
@@ -57,7 +67,8 @@ const Education = () => {
                         <TextField
                             placeholder="Tên trường"
                             fullWidth
-                            name="institute_university_name"
+                            name={`institute_university_name_${index}`}
+                            defaultValue={data?.institute_university_name}
                         />
                     </Box>
                 </Grid>
@@ -83,7 +94,8 @@ const Education = () => {
                                     type="date"
                                     placeholder="Ngày bắt đầu"
                                     fullWidth
-                                    name="starting_date"
+                                    name={`starting_date_${index}`}
+                                    defaultValue={data?.starting_date}
                                 />
                             </Box>
                             <Box>
@@ -94,7 +106,8 @@ const Education = () => {
                                     type="date"
                                     placeholder="Ngày ra trường"
                                     fullWidth
-                                    name="completion_date"
+                                    name={`completion_date_${index}`}
+                                    defaultValue={data?.completion_date}
                                 />
                             </Box>
                         </Stack>
@@ -119,7 +132,8 @@ const Education = () => {
                                 <TextField
                                     placeholder="GPA"
                                     fullWidth
-                                    name="cgpa"
+                                    name={`cgpa_${index}`}
+                                    defaultValue={data?.cgpa}
                                 />
                             </Box>
                             <Box>
@@ -129,7 +143,8 @@ const Education = () => {
                                 <TextField
                                     placeholder="Phần trăm (tùy chọn)"
                                     fullWidth
-                                    name="percentage"
+                                    name={`percentage_${index}`}
+                                    defaultValue={data?.percentage}
                                 />
                             </Box>
                         </Stack>

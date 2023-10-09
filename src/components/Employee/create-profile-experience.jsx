@@ -7,7 +7,7 @@ import {
     Stack,
 } from "@mui/material";
 
-const Experience = () => {
+const Experience = ({ data, index }) => {
     return (
         <Grid
             container
@@ -30,7 +30,8 @@ const Experience = () => {
                     <TextField
                         placeholder="Công ty"
                         fullWidth
-                        name="company_name"
+                        name={`company_name_${index}`}
+                        defaultValue={data?.company_name}
                     />
                 </Box>
             </Grid>
@@ -48,7 +49,8 @@ const Experience = () => {
                     <TextField
                         placeholder="Vai trò"
                         fullWidth
-                        name="job_title"
+                        name={`job_title_${index}`}
+                        defaultValue={data?.job_title}
                     />
                 </Box>
             </Grid>
@@ -65,7 +67,10 @@ const Experience = () => {
                     <Typography fontWeight={600} variant="p">
                         Công việc hiện tại
                     </Typography>
-                    <Checkbox name="is_current_job" />
+                    <Checkbox
+                        name={`is_current_job_${index}`}
+                        defaultChecked={data?.is_current_job === "Y"}
+                    />
                 </Box>
             </Grid>
             <Grid item xs={6}></Grid>
@@ -85,7 +90,8 @@ const Experience = () => {
                         rows={3}
                         placeholder="Mô tả công việc..."
                         fullWidth
-                        name="job_location_country"
+                        name={`description_${index}`}
+                        defaultValue={data?.description}
                     />
                 </Box>
             </Grid>
@@ -104,7 +110,8 @@ const Experience = () => {
                     <TextField
                         placeholder="Quốc gia"
                         fullWidth
-                        name="job_location_country"
+                        name={`job_location_country_${index}`}
+                        defaultValue={data?.job_location_country}
                     />
                 </Box>
             </Grid>
@@ -122,7 +129,8 @@ const Experience = () => {
                     <TextField
                         placeholder="Bang (tùy chọn)"
                         fullWidth
-                        name="job_location_state"
+                        name={`job_location_state_${index}`}
+                        defaultValue={data?.job_location_state}
                     />
                 </Box>
             </Grid>
@@ -140,7 +148,8 @@ const Experience = () => {
                     <TextField
                         placeholder="Thành phố"
                         fullWidth
-                        name="job_location_city"
+                        name={`job_location_city_${index}`}
+                        defaultValue={data?.job_location_city}
                     />
                 </Box>
             </Grid>
@@ -163,7 +172,8 @@ const Experience = () => {
                                 type="date"
                                 placeholder="Ngày bắt đầu"
                                 fullWidth
-                                name="start_date"
+                                name={`start_date_${index}`}
+                                defaultValue={data?.start_date}
                             />
                         </Box>
                         <Box>
@@ -174,7 +184,8 @@ const Experience = () => {
                                 type="date"
                                 placeholder="Ngày kết thúc"
                                 fullWidth
-                                name="end_date"
+                                name={`end_date_${index}`}
+                                defaultValue={data?.end_date}
                             />
                         </Box>
                     </Stack>

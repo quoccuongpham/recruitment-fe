@@ -8,7 +8,6 @@ import ProfileAvatar from "../../components/Employee/profile-avatar";
 
 export async function loader() {
     const result = await axios.get("/employee/profile");
-
     return result.data;
 }
 
