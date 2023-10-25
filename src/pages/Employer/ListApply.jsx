@@ -24,6 +24,9 @@ const ListApply = () => {
 		const formData = data;
 		const interviewMessage = `Lúc ${interviewInfo.time}, ngày ${interviewInfo.date}, tại ${interviewInfo.content}`;
 		formData.interviewMessage = interviewMessage;
+		if (Object.values(interviewInfo).includes("")) {
+			return false;
+		}
 		const rs = await axios.post(`/employer/job-apply/${id}`, formData);
 		return rs.data.success;
 	};
@@ -48,6 +51,12 @@ const ListApply = () => {
 				<div>
 					<Typography fontWeight={500}>Ngày</Typography>
 					<TextField
+						error={interviewInfo.date === ""}
+						helperText={
+							interviewInfo.date === ""
+								? "Không được bỏ trống"
+								: null
+						}
 						size="small"
 						fullWidth
 						type="date"
@@ -62,6 +71,12 @@ const ListApply = () => {
 				<div>
 					<Typography fontWeight={500}>Giờ</Typography>
 					<TextField
+						error={interviewInfo.time === ""}
+						helperText={
+							interviewInfo.time === ""
+								? "Không được bỏ trống"
+								: null
+						}
 						size="small"
 						fullWidth
 						type="time"
@@ -76,6 +91,12 @@ const ListApply = () => {
 				<div>
 					<Typography fontWeight={500}>Địa chỉ</Typography>
 					<TextField
+						error={interviewInfo.content === ""}
+						helperText={
+							interviewInfo.content === ""
+								? "Không được bỏ trống"
+								: null
+						}
 						size="small"
 						fullWidth
 						type="text"

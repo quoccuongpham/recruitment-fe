@@ -65,13 +65,17 @@ const AccountApply = ({ info, handleAccept }) => {
 									color="success"
 									variant="contained"
 									fullWidth
-									onClick={() => {
-										handleAccept(info.id_job, {
-											user_account_id: info.id,
-											is_accept: true,
-											email: info.email,
-										});
-										set_is_success(true);
+									onClick={async () => {
+										const rs = await handleAccept(
+											info.id_job,
+											{
+												user_account_id: info.id,
+												is_accept: true,
+												email: info.email,
+											}
+										);
+
+										set_is_success(rs);
 									}}
 									disabled={info.is_accept || is_success}
 								>
