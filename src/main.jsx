@@ -15,10 +15,11 @@ import {
 	employer_list_apply_loader,
 	home_loader,
 	employee_myjob_loader,
+	employer_profile_employee_loader,
 } from "./data/loader/index.js";
 // Employer
 import Create_Profile from "./pages/Employer/Create_Profile.jsx";
-import EmployerLayout from "./layouts/Employer/EmployerLayout.jsx";
+// import EmployerLayout from "./layouts/Employer/EmployerLayout.jsx";
 import EmployerProfile from "./pages/Employer/Profile.jsx";
 import PostJob, {
 	action as PostJobAction,
@@ -45,6 +46,10 @@ import EmployeeCreateProfile, {
 } from "./pages/Employee/create-profile.jsx";
 import { action as logout } from "./layouts/Employee/Header.jsx";
 import MyJob from "./pages/Employee/my-job.jsx";
+import ProfileSeeker from "./pages/Employer/profile-seeker.jsx";
+
+//layouts
+import MainLayout from "./layouts/main/index.jsx";
 //* config axios
 axios.defaults.baseURL = "http://localhost:3000";
 // axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -65,8 +70,21 @@ const router = createBrowserRouter([
 	{ path: "/auth/register", element: <Register />, action: registerAction },
 	{ path: "/auth/logout", action: logout },
 	{
+		path: "/main",
+		element: <MainLayout />,
+		loader: home_loader,
+		children: [
+			{
+				path: "/main/employer/post-job",
+				action: PostJobAction,
+				element: <PostJob />,
+			},
+		],
+	},
+	{
 		path: "/employer",
-		element: <EmployerLayout />,
+		// element: <EmployerLayout />,
+		element: <MainLayout />,
 		loader: home_loader,
 		children: [
 			{
@@ -96,6 +114,11 @@ const router = createBrowserRouter([
 				path: "/employer/apply/:id",
 				element: <ListApply />,
 				loader: employer_list_apply_loader,
+			},
+			{
+				path: "/employer/profile-employee/:id",
+				element: <ProfileSeeker />,
+				loader: employer_profile_employee_loader,
 			},
 		],
 	},

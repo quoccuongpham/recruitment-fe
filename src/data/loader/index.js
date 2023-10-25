@@ -44,3 +44,9 @@ export async function employee_myjob_loader() {
 	const result = await axios.get("/employee/apply");
 	return result.data;
 }
+
+// Employer/profile-employee
+export async function employer_profile_employee_loader({ params }) {
+	const rs = await axios.get(`/employer/seeker-profile/${params.id}`);
+	return rs.data;
+}

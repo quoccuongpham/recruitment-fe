@@ -1,23 +1,119 @@
-import { Container } from "@mui/material";
+import {
+	Container,
+	TextField,
+	Typography,
+	Stack,
+	Divider,
+} from "@mui/material";
 import AccountApply from "../../components/Employer/list-apply-accout";
 import { useLoaderData, useParams } from "react-router-dom";
-
+import Header from "../../layouts/main/components/header";
+import axios from "axios";
+import { useState } from "react";
 const ListApply = () => {
 	const list_info = useLoaderData();
 	const id_job = useParams().id;
-	console.log(list_info);
+
+	const [interviewInfo, setInterviewInfo] = useState({
+		time: "",
+		date: "",
+		content: "",
+	});
+
+	const handleAccept = async (id, data) => {
+		const formData = data;
+		const interviewMessage = `Lúc ${interviewInfo.time}, ngày ${interviewInfo.date}, tại ${interviewInfo.content}`;
+		formData.interviewMessage = interviewMessage;
+		const rs = await axios.post(`/employer/job-apply/${id}`, formData);
+		return rs.data.success;
+	};
 	return (
-		<Container
-			sx={{
-				boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-				padding: "10px 0",
-				borderRadius: "10px",
-			}}
-		>
-			{list_info.map((value, index) => {
-				return <AccountApply info={{ id_job, ...value }} key={index} />;
-			})}
-		</Container>
+		<>
+			<Header title="Danh sách ứng tuyển" />
+			<Divider />
+			<Typography
+				variant="h1"
+				fontSize={25}
+				fontWeight={700}
+				marginTop={3}
+				marginBottom={2}
+			>
+				Thông báo phỏng vấn
+			</Typography>
+			<Stack
+				sx={{ marginBottom: "30px" }}
+				flexDirection="column"
+				marginBottom={2}
+			>
+				<div>
+					<Typography fontWeight={500}>Ngày</Typography>
+					<TextField
+						size="small"
+						fullWidth
+						type="date"
+						onChange={(e) => {
+							setInterviewInfo({
+								...interviewInfo,
+								date: e.target.value,
+							});
+						}}
+					/>
+				</div>
+				<div>
+					<Typography fontWeight={500}>Giờ</Typography>
+					<TextField
+						size="small"
+						fullWidth
+						type="time"
+						onChange={(e) => {
+							setInterviewInfo({
+								...interviewInfo,
+								time: e.target.value,
+							});
+						}}
+					/>
+				</div>
+				<div>
+					<Typography fontWeight={500}>Địa chỉ</Typography>
+					<TextField
+						size="small"
+						fullWidth
+						type="text"
+						onChange={(e) => {
+							setInterviewInfo({
+								...interviewInfo,
+								content: e.target.value,
+							});
+						}}
+					/>
+				</div>
+			</Stack>
+			<Divider />
+			<Typography
+				variant="h1"
+				fontSize={25}
+				fontWeight={700}
+				marginTop={3}
+				marginBottom={2}
+			>
+				Danh sách ứng viên
+			</Typography>
+			<Container>
+				{list_info.map((value, index) => {
+					return (
+						<AccountApply
+							info={{ id_job, ...value }}
+							key={index}
+							handleAccept={handleAccept}
+						/>
+					);
+				})}
+
+				{list_info.length == 0 ? (
+					<h1>Hiện chưa có người ứng tuyển</h1>
+				) : null}
+			</Container>
+		</>
 	);
 };
 
