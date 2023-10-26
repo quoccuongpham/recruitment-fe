@@ -6,7 +6,7 @@ import MarkAsUnreadRoundedIcon from "@mui/icons-material/MarkAsUnreadRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { Avatar, IconButton, Slide, Divider } from "@mui/material";
+import { Avatar, IconButton, Slide, Divider, Grow, Box } from "@mui/material";
 import { NavLink, Outlet, useLoaderData } from "react-router-dom";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -55,14 +55,17 @@ const MainLayout = () => {
 						</div>
 						<Divider />
 						<div className={styles.sidebar_info}>
-							<Avatar alt="avatar"></Avatar>
+							<Avatar
+								alt="avatar"
+								src={data?.user_image}
+							></Avatar>
 							<div className={styles.sidebar_info_text}>
 								<p className={styles.sidebar_info_name}>
-									{data.email}
+									{data?.company_name}
 								</p>
-								{/* <p className={styles.sidebar_info_email}>
-									quoccuonga2st@gmail.com
-								</p> */}
+								<p className={styles.sidebar_info_email}>
+									{data?.email}
+								</p>
 							</div>
 						</div>
 						<Divider />
@@ -140,6 +143,24 @@ const MainLayout = () => {
 						</div>
 					</aside>
 				</Slide>
+				<Grow in={!showSidebar} mountOnEnter unmountOnExit>
+					<Box
+						position="absolute"
+						bottom={25}
+						left={25}
+						padding="3px"
+						border="2px solid #ccc"
+						borderRadius="5px"
+						sx={{ backgroundColor: "#fff" }}
+						onClick={() => {
+							setShowSidebar(true);
+						}}
+					>
+						<IconButton>
+							<MenuRoundedIcon />
+						</IconButton>
+					</Box>
+				</Grow>
 				{/* main content */}
 				<div className={styles.main}>
 					<div className={styles.main_content}>

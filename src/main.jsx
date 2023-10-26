@@ -16,6 +16,8 @@ import {
 	home_loader,
 	employee_myjob_loader,
 	employer_profile_employee_loader,
+	employer_profile_loader,
+	employer_home_loader,
 } from "./data/loader/index.js";
 // Employer
 import Create_Profile from "./pages/Employer/Create_Profile.jsx";
@@ -85,7 +87,8 @@ const router = createBrowserRouter([
 		path: "/employer",
 		// element: <EmployerLayout />,
 		element: <MainLayout />,
-		loader: home_loader,
+		// loader: home_loader,
+		loader: employer_home_loader,
 		children: [
 			{
 				path: "/employer/create-profile",
@@ -94,6 +97,7 @@ const router = createBrowserRouter([
 			{
 				path: "/employer/profile",
 				element: <EmployerProfile />,
+				loader: employer_profile_loader,
 			},
 			{
 				path: "/employer/post-job",

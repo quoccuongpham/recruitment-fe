@@ -7,15 +7,19 @@ export async function employer_list_apply_loader({ params }) {
 }
 
 export const home_loader = async () => {
-	const info = await axios.get("/auth");
-	const jobs = await axios.get("/employee/jobs");
-	if (info.data.success) {
-		return {
-			email: info.data.dataValues.email,
-			user_type_id: info.data.dataValues.user_type_id,
-			jobs: jobs.data,
-		};
-	} else {
+	try {
+		const info = await axios.get("/auth");
+		const jobs = await axios.get("/employee/jobs");
+		if (info.data.success) {
+			return {
+				email: info.data.dataValues.email,
+				user_type_id: info.data.dataValues.user_type_id,
+				jobs: jobs.data,
+			};
+		} else {
+			return redirect("/auth/login");
+		}
+	} catch (error) {
 		return redirect("/auth/login");
 	}
 };
@@ -45,8 +49,37 @@ export async function employee_myjob_loader() {
 	return result.data;
 }
 
+//* ========================= Employer =============================================
+
 // Employer/profile-employee
 export async function employer_profile_employee_loader({ params }) {
 	const rs = await axios.get(`/employer/seeker-profile/${params.id}`);
 	return rs.data;
 }
+// employer/profile
+export async function employer_profile_loader() {
+	try {
+		const rs = await axios.get("/employer/profile");
+		if (rs.data.success) {
+			return rs.data.dataValues;
+		} else {
+			return {};
+		}
+	} catch (error) {
+		return {};
+	}
+}
+
+export const employer_home_loader = async () => {
+	try {
+		const info = await axios.get("/auth");
+		const profile = await axios.get("/employer/profile");
+		if (info.data.success && profile.data.success) {
+			return profile.data.dataValues;
+		} else {
+			return redirect("/auth/login");
+		}
+	} catch (error) {
+		return redirect("/auth/login");
+	}
+};
