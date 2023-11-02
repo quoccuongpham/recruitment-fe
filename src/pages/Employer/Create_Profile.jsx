@@ -54,6 +54,20 @@ const Create_Profile = () => {
 					rows={3}
 					sx={{ paddingBottom: "8px" }}
 				/>
+				<Typography fontWeight={600}>Email liên hệ</Typography>
+				<TextField
+					placeholder={data?.company_email}
+					value={data?.company_email}
+					onChange={(e) => {
+						setData({
+							...data,
+							company_email: e.target.value,
+						});
+					}}
+					name="company_email"
+					fullWidth={true}
+					sx={{ paddingBottom: "8px" }}
+				/>
 				<Typography fontWeight={600}>Địa chỉ website</Typography>
 				<TextField
 					placeholder={data?.company_website_url}
@@ -81,14 +95,6 @@ const Create_Profile = () => {
 					}}
 					fullWidth={true}
 					sx={{ paddingBottom: "8px" }}
-				/>
-				<input
-					type="file"
-					name="company_images"
-					multiple
-					onChange={(e) => {
-						console.log(e.target.value);
-					}}
 				/>
 				<Box>
 					<Button

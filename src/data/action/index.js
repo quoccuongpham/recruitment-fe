@@ -1,5 +1,6 @@
 import { redirect } from "react-router-dom";
 import axios from "axios";
+import swal from "sweetalert";
 
 // login action
 export const login_action = async ({ request }) => {
@@ -77,6 +78,28 @@ export async function logout_action() {
 export async function employer_update_profile_action({ request }) {
 	const formData = await request.formData();
 	const data = Object.fromEntries(formData);
+	try {
+		const result = await axios.post("/employer/profile", data);
+		if (result.data.success) {
+			swal({
+				title: "Thành công",
+				content: "Cập nhật thông tin thành công",
+				icon: "success",
+			});
+		} else {
+			swal({
+				title: "Thất bại",
+				content: "Cập nhật thông tin thất bại",
+				icon: "error",
+			});
+		}
+	} catch (error) {
+		swal({
+			title: "Thất bại",
+			content: "Cập nhật thông tin thất bại",
+			icon: "error",
+		});
+	}
 	console.log("running:::", data);
 	return data;
 }

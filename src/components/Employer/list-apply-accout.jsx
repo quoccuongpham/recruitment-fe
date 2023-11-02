@@ -6,6 +6,7 @@ import { useState } from "react";
 import LinkStyled from "../../utils/styled_component/LinkStyled";
 const AccountApply = ({ info, handleAccept }) => {
 	const [is_success, set_is_success] = useState(false);
+	console.log(info.id_job, info?.user_account.id, info?.user_account.email);
 	// const handleAccept = useCallback(async () => {
 	// 	try {
 	// 		const formData = {
@@ -37,19 +38,25 @@ const AccountApply = ({ info, handleAccept }) => {
 				<Grid container alignItems="center">
 					<Grid item xs={1}>
 						<img
-							src={info.user_image ?? default_avatar}
+							src={
+								info?.user_account.user_image ?? default_avatar
+							}
 							className="avatar"
 						/>
 					</Grid>
 					<Grid item xs={9}>
-						<Typography fontWeight="600">{info.email}</Typography>
-						<Typography>{info.contact_number}</Typography>
+						<Typography fontWeight="600">
+							{info?.user_account.email}
+						</Typography>
+						<Typography>
+							{info?.user_account.contact_number}
+						</Typography>
 					</Grid>
 					<Grid item xs={2} textAlign="right">
 						<Grid container spacing={1}>
 							<Grid item xs={12}>
 								<LinkStyled
-									to={`/employer/profile-employee/${info?.id}`}
+									to={`/employer/profile-employee/${info?.user_account.id}`}
 								>
 									<Button
 										color="info"
@@ -69,9 +76,10 @@ const AccountApply = ({ info, handleAccept }) => {
 										const rs = await handleAccept(
 											info.id_job,
 											{
-												user_account_id: info.id,
+												user_account_id:
+													info?.user_account.id,
 												is_accept: true,
-												email: info.email,
+												email: info?.user_account.email,
 											}
 										);
 

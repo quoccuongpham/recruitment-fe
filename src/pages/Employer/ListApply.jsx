@@ -35,8 +35,9 @@ const ListApply = () => {
 			<Header title="Danh sách ứng tuyển" />
 			<Divider />
 			<Typography
-				variant="h1"
-				fontSize={25}
+				variant="h6"
+				display="block"
+				color="#333"
 				fontWeight={700}
 				marginTop={3}
 				marginBottom={2}
@@ -111,8 +112,9 @@ const ListApply = () => {
 			</Stack>
 			<Divider />
 			<Typography
-				variant="h1"
-				fontSize={25}
+				variant="h6"
+				display="block"
+				color="#333"
 				fontWeight={700}
 				marginTop={3}
 				marginBottom={2}

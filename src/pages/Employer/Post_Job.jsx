@@ -26,16 +26,14 @@ export async function action({ request }) {
 		delete data.file_description;
 		const result = await axios.post("/employer/job", data);
 		const id_job = result?.data.id;
-		const upload_file_result = await axios.post(
-			`/employer/job/file_description/${id_job}`,
-			file,
-			{
+		if (file.get("file_description").name) {
+			await axios.post(`/employer/job/file_description/${id_job}`, file, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},
-			}
-		);
-		if (!upload_file_result.data.success) {
+			});
+		}
+		if (!result.data.success) {
 			swal({
 				title: "Thất bại",
 				text: "Upload file không thành công",

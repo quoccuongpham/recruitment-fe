@@ -11,9 +11,11 @@ export async function loader() {
 		return null;
 	}
 }
+
 const JobPosted = () => {
 	const data = useLoaderData().data;
 	console.log(data);
+
 	return data ? (
 		<div>
 			<ShowJob list_job={data.dataValues} />
