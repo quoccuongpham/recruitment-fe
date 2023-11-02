@@ -1,121 +1,109 @@
 import Typography from "@mui/material/Typography";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Container } from "@mui/material";
 import { Link, useLoaderData } from "react-router-dom";
-
+import { blue } from "@mui/material/colors";
 const Profile = () => {
 	const data = useLoaderData();
 	console.log(data);
 	return (
-		<>
-			<Typography
-				variant="p"
-				display="block"
-				fontWeight="bold"
-				fontSize="20px"
-				marginBottom={2}
-			>
-				Thông tin tài khoản
-			</Typography>
-			<Grid container spacing={1}>
+		<Container sx={{ marginTop: "50px" }}>
+			<Grid container spacing={5}>
 				<Grid item xs={4}>
-					Tên:{" "}
-					<Typography fontWeight="bold" variant="p">
-						Phạm Quốc Cường
+					<Typography
+						variant="p"
+						display="block"
+						fontWeight="bold"
+						fontSize="20px"
+						marginBottom={2}
+					>
+						Thông tin tài khoản
 					</Typography>
+					<Container disableGutters>
+						<div>
+							Số điện thoại:{" "}
+							<Typography fontWeight="bold" variant="p">
+								{data?.contact_number}
+							</Typography>
+						</div>
+						<div>
+							Email:{" "}
+							<Typography fontWeight="bold" variant="p">
+								{data?.email}
+							</Typography>
+						</div>
+						<div>
+							Giới tính:{" "}
+							<Typography fontWeight="bold" variant="p">
+								{data?.gender == "M" ? "Nam" : "Nữ"}
+							</Typography>
+						</div>
+					</Container>
 				</Grid>
-				<Grid item xs={4}>
-					Số điện thoại:{" "}
-					<Typography fontWeight="bold" variant="p">
-						0123456789
+				<Grid
+					item
+					xs={8}
+					bgcolor={blue[50]}
+					borderRadius={1}
+					// height="calc(100vh - 100px)"
+					paddingBottom={2}
+				>
+					<Typography
+						variant="p"
+						display="block"
+						fontWeight="bold"
+						fontSize="20px"
+						marginBottom={2}
+						textAlign="center"
+					>
+						Hồ sơ doanh nghiệp
 					</Typography>
-				</Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}>
-					Ngày sinh:{" "}
-					<Typography fontWeight="bold" variant="p">
-						1/1/2002
-					</Typography>
-				</Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}>
-					Giới tính:{" "}
-					<Typography fontWeight="bold" variant="p">
-						Nam
-					</Typography>
-				</Grid>
-				<Grid item xs={4}>
-					Quốc gia:{" "}
-					<Typography fontWeight="bold" variant="p">
-						Việt Nam
-					</Typography>
-				</Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}>
-					Địa chỉ:{" "}
-					<Typography fontWeight="bold" variant="p">
-						Ninh Kiêu, Cần thơ, Việt Nam
-					</Typography>
-				</Grid>
-			</Grid>
-			<Typography
-				variant="p"
-				display="block"
-				fontWeight="bold"
-				fontSize="20px"
-				marginTop={3}
-				marginBottom={2}
-			>
-				Hồ sơ doanh nghiệp
-			</Typography>
-			<Grid container spacing={1}>
-				<Grid item xs={4}>
-					Tên công ty:{" "}
-					<Typography fontWeight="bold" variant="p">
-						ABC
-					</Typography>
-				</Grid>
-				<Grid item xs={4}>
-					Số điện thoại:{" "}
-					<Typography fontWeight="bold" variant="p">
-						0123456789
-					</Typography>
-				</Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}>
-					Email liên hệ:{" "}
-					<Typography fontWeight="bold" variant="p">
-						abc@gmail.com
-					</Typography>
-				</Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}>
-					Ngày thành lập{" "}
-					<Typography fontWeight="bold" variant="p">
-						1/1/2023
-					</Typography>
-				</Grid>
-				<Grid item xs={4}>
-					Quốc gia:{" "}
-					<Typography fontWeight="bold" variant="p">
-						Việt Nam
-					</Typography>
-				</Grid>
-				<Grid item xs={4}></Grid>
-				<Grid item xs={4}>
-					Địa chỉ:{" "}
-					<Typography fontWeight="bold" variant="p">
-						Ninh Kiêu, Cần thơ, Việt Nam
-					</Typography>
+					<Container disableGutters>
+						<div>
+							Tên công ty:{" "}
+							<Typography fontWeight="bold" variant="p">
+								{data?.company_name}
+							</Typography>
+						</div>
+						<div>
+							Ngày thành lập:{" "}
+							<Typography fontWeight="bold" variant="p">
+								{data?.establishment_date}
+							</Typography>
+						</div>
+						<div></div>
+						<div>
+							Giới thiệu:{" "}
+							<Typography fontWeight="bold" variant="p">
+								{data?.profile_description}
+							</Typography>
+						</div>
+						<div>
+							Website:{" "}
+							<Typography fontWeight="bold" variant="p">
+								<a href="#">{data?.company_website_url}</a>
+							</Typography>
+						</div>
+					</Container>
+					<Container
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "end",
+							height: "100px",
+						}}
+					>
+						<Link to="/employer/create-profile">
+							<Button
+								variant="contained"
+								sx={{ marginTop: "20px" }}
+							>
+								Chỉnh sửa hồ sơ
+							</Button>
+						</Link>
+					</Container>
 				</Grid>
 			</Grid>
-			<Link to="/employer/create-profile">
-				<Button variant="contained" sx={{ marginTop: "20px" }}>
-					Chỉnh sửa hồ sơ
-				</Button>
-			</Link>
-		</>
+		</Container>
 	);
 };
 

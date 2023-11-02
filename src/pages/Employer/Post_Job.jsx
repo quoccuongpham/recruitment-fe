@@ -1,59 +1,75 @@
 import Button from "@mui/material/Button";
-import { Form, useActionData } from "react-router-dom";
+import { Form } from "react-router-dom";
 import {
 	TextField,
 	Typography,
 	Select,
 	MenuItem,
 	Grid,
-	Alert,
-	AlertTitle,
-	Slide,
 	Container,
+	Box,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import { useState } from "react";
-import dayjs from "dayjs";
+
 import axios from "axios";
+import swal from "sweetalert";
+import { useState } from "react";
 export async function action({ request }) {
 	try {
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData);
-		console.log(data);
-		const result = await axios.post("/employer/create-job", data);
+		let file = new FormData();
+		// file.append("file_description", formData.file_description);
+		// console.log(data);
+		// console.log(file);
+		// return null;
+		file.append("file_description", data.file_description);
+		delete data.file_description;
+		const result = await axios.post("/employer/job", data);
+		const id_job = result?.data.id;
+		const upload_file_result = await axios.post(
+			`/employer/job/file_description/${id_job}`,
+			file,
+			{
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		);
+		if (!upload_file_result.data.success) {
+			swal({
+				title: "Thất bại",
+				text: "Upload file không thành công",
+				icon: "error",
+			});
+		} else {
+			swal({
+				title: "Thành công",
+				text: "Tin tuyển dụng đã được đăng",
+				icon: "success",
+			});
+		}
 		return result;
 	} catch (err) {
+		swal({
+			title: "Thất bại",
+			text: "Đã có lỗi xảy ra",
+			icon: "error",
+		});
 		console.log(err);
 		return null;
 	}
 }
 const PostJob = () => {
-	const [date, setDate] = useState(dayjs());
-	const submitResult = useActionData();
+	const [file, setFile] = useState(null);
+	const handleFileChange = (event) => {
+		setFile(event.target.files[0]);
+	};
+	console.log(file);
 	return (
 		<Container sx={{ paddingBottom: "30px" }}>
 			<h1>Đăng tuyển dụng</h1>
-			<Slide
-				direction="left"
-				in={submitResult?.data?.success}
-				mountOnEnter
-				unmountOnExit
-			>
-				<Alert
-					severity="success"
-					onClose={() => {}}
-					sx={{
-						width: { xl: "30%" },
-						position: "absolute",
-						top: "70px",
-						right: "10px",
-					}}
-				>
-					<AlertTitle>Thành Công</AlertTitle>
-					Tin đã được đăng — <strong>Xem trong VIỆC ĐÃ ĐĂNG</strong>
-				</Alert>
-			</Slide>
-			<Form method="post">
+
+			<Form method="post" encType="multipart/form-data">
 				<Typography variant="p" fontWeight="bold">
 					Mô tả công việc
 				</Typography>
@@ -74,24 +90,52 @@ const PostJob = () => {
 					fullWidth={true}
 					margin="dense"
 				/>
-				<Typography>Loại công việc</Typography>
+				<Typography sx={{ marginTop: "10px" }}>
+					Loại công việc
+				</Typography>
 				<Select name="job_type_id" fullWidth defaultValue="1">
 					<MenuItem value="1">Fulltime</MenuItem>
 					<MenuItem value="2">Parttime</MenuItem>
 					<MenuItem value="3">Intern</MenuItem>
 				</Select>
-				<DatePicker
-					label="Ngày hết hạn"
+				<Typography sx={{ marginTop: "10px" }}>
+					Ngày nhận hồ sơ
+				</Typography>
+				<TextField
+					type="date"
+					name="date_receiving_application"
 					sx={{
 						paddingBottom: "8px",
 						width: "100%",
-						marginTop: "10px",
 					}}
-					value={date}
-					onChange={(newValue) => setDate(newValue.$d)}
 				/>
-				<input name="date_expire" defaultValue={date} hidden={true} />
-				<Typography variant="p" fontWeight="bold">
+				<Typography sx={{ marginTop: "10px" }}>Ngày hết hạn</Typography>
+				<TextField
+					type="date"
+					name="date_expire"
+					sx={{
+						paddingBottom: "8px",
+						width: "100%",
+					}}
+				/>
+				<TextField
+					label="Mức lương"
+					type="text"
+					name="salary"
+					placeholder="Mức lương"
+					fullWidth={true}
+					margin="normal"
+				/>
+				<Typography sx={{ marginTop: "10px" }}>Danh mục</Typography>
+				<Select name="category_id" fullWidth defaultValue="1">
+					<MenuItem value="1">Công nghệ - Kỹ thuật</MenuItem>
+					<MenuItem value="2">Công nghệ thông tin</MenuItem>
+					<MenuItem value="3">Kinh tế</MenuItem>
+					<MenuItem value="4">Môi trường - Nông nghiệp</MenuItem>
+					<MenuItem value="5">Sư phạm - Xã hội</MenuItem>
+					<MenuItem value="6">Thủy sản</MenuItem>
+				</Select>
+				<Typography variant="p" fontWeight="bold" paddingTop={2}>
 					Vị trí
 				</Typography>
 				<Grid container rowSpacing={0} columnSpacing={2}>
@@ -147,13 +191,23 @@ const PostJob = () => {
 						/>
 					</Grid>
 				</Grid>
-				<Button
-					type="submit"
-					variant="contained"
-					sx={{ display: "block" }}
-				>
-					Đăng
-				</Button>
+				<Typography variant="p" fontWeight="bold" paddingTop={2}>
+					Đính kèm tệp
+				</Typography>
+				<input
+					type="file"
+					name="file_description"
+					onChange={handleFileChange}
+				/>
+				<Box marginTop={2}>
+					<Button
+						type="submit"
+						variant="contained"
+						sx={{ display: "block" }}
+					>
+						Lưu
+					</Button>
+				</Box>
 			</Form>
 		</Container>
 	);

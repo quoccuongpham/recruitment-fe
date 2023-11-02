@@ -35,7 +35,7 @@ const MainLayout = () => {
 		setShowSidebar(!showSidebar);
 	}
 	const data = useLoaderData();
-	console.log(data);
+	// console.log(data);
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<div className={styles.container}>
@@ -146,12 +146,16 @@ const MainLayout = () => {
 				<Grow in={!showSidebar} mountOnEnter unmountOnExit>
 					<Box
 						position="absolute"
-						bottom={25}
+						top={25}
 						left={25}
-						padding="3px"
+						// padding="3px"
 						border="2px solid #ccc"
 						borderRadius="5px"
-						sx={{ backgroundColor: "#fff" }}
+						sx={{
+							backgroundColor: "#fff",
+							boxShadow:
+								"rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px",
+						}}
 						onClick={() => {
 							setShowSidebar(true);
 						}}

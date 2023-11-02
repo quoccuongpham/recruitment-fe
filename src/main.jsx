@@ -19,6 +19,9 @@ import {
 	employer_profile_loader,
 	employer_home_loader,
 } from "./data/loader/index.js";
+
+// action
+import { employer_update_profile_action } from "./data/action/index.js";
 // Employer
 import Create_Profile from "./pages/Employer/Create_Profile.jsx";
 // import EmployerLayout from "./layouts/Employer/EmployerLayout.jsx";
@@ -93,6 +96,8 @@ const router = createBrowserRouter([
 			{
 				path: "/employer/create-profile",
 				element: <Create_Profile />,
+				loader: employer_home_loader,
+				action: employer_update_profile_action,
 			},
 			{
 				path: "/employer/profile",
