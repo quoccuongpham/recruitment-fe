@@ -54,7 +54,7 @@ export async function employee_detail_job_action({ request }) {
 	try {
 		let formData = await request.formData();
 		formData = Object.fromEntries(formData);
-		const rs = await axios.post("/employee/apply", formData);
+		await axios.post("/employee/apply", formData);
 		return formData;
 	} catch (err) {
 		return { success: false };

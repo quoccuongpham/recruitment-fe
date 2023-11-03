@@ -53,8 +53,14 @@ import { action as logout } from "./layouts/Employee/Header.jsx";
 import MyJob from "./pages/Employee/my-job.jsx";
 import ProfileSeeker from "./pages/Employer/profile-seeker.jsx";
 
+//================== NEW EMPLOYEE ===============================
+import EmployeeJob from "./pages/new_employee/Job.jsx";
+import EmployeeMyJob from "./pages/new_employee/MyJob.jsx";
+import EmployeeDetailJob from "./pages/new_employee/DetailJob.jsx";
+
 //layouts
 import MainLayout from "./layouts/main/index.jsx";
+import MainEmployeeLayout from "./layouts/new_layout_employee/index.jsx";
 //* config axios
 axios.defaults.baseURL = "http://localhost:3000";
 // axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -76,13 +82,24 @@ const router = createBrowserRouter([
 	{ path: "/auth/logout", action: logout },
 	{
 		path: "/main",
-		element: <MainLayout />,
+		element: <MainEmployeeLayout />,
 		loader: home_loader,
 		children: [
 			{
-				path: "/main/employer/post-job",
-				action: PostJobAction,
-				element: <PostJob />,
+				path: "/main/job",
+				element: <EmployeeJob />,
+				loader: employee_job_loader,
+			},
+			{
+				path: "/main/myjob",
+				element: <EmployeeMyJob />,
+				loader: employee_myjob_loader,
+			},
+			{
+				path: "/main/detail-job/:id",
+				element: <EmployeeDetailJob />,
+				loader: detail_job_loader,
+				action: detail_job_action,
 			},
 		],
 	},
