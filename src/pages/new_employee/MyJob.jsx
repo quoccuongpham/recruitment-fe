@@ -26,7 +26,9 @@ const MyJob = () => {
 						<br />
 						<Text>Trạng thái: </Text>
 						{element?.is_accept ? (
-							"hồ sơ đã được chấp nhận"
+							<Text strong type="success">
+								hồ sơ đã được chấp nhận
+							</Text>
 						) : (
 							<Text strong type="warning">
 								đang phê duyệt <Spin size="small" />

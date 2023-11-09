@@ -1,5 +1,6 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
+import Swal from "sweetalert2";
 export async function employer_list_apply_loader({ params }) {
 	const rs = await axios.get(`/employer/job-apply/${params.id}`);
 	console.log(rs);
@@ -17,10 +18,10 @@ export const home_loader = async () => {
 				jobs: jobs.data,
 			};
 		} else {
-			return redirect("/auth/login");
+			return redirect("/login");
 		}
 	} catch (error) {
-		return redirect("/auth/login");
+		return redirect("/login");
 	}
 };
 // JobPosted.jsx
@@ -28,6 +29,8 @@ export async function employer_job_post_loader() {
 	const data = await axios.get("/employer/job-posted");
 	return data;
 }
+
+//* ======================= EMPLOYEE ========================
 // Employee/Job.jsx
 export async function employee_job_loader() {
 	const data = await axios.get("/employee/jobs");
@@ -40,8 +43,13 @@ export async function employee_detail_job_loader({ params }) {
 }
 // Employee/Profile.jsx
 export async function employee_profile_loader() {
-	const result = await axios.get("/employee/profile");
-	return result.data;
+	try {
+		const result = await axios.get("/employee/profile");
+		return result.data;
+	} catch (error) {
+		await Swal.fire("Lỗi", "Đã có lỗi xảy ra", "error");
+		return null;
+	}
 }
 // Employee/MyJob.jsx
 export async function employee_myjob_loader() {

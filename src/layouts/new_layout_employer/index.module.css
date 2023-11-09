@@ -1,0 +1,9 @@
+.container {
+	background-color: #a9c9ff;
+	background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+	min-height: 100vh;
+}
+
+.transparent {
+	background-color: transparent;
+}

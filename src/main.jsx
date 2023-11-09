@@ -57,6 +57,12 @@ import ProfileSeeker from "./pages/Employer/profile-seeker.jsx";
 import EmployeeJob from "./pages/new_employee/Job.jsx";
 import EmployeeMyJob from "./pages/new_employee/MyJob.jsx";
 import EmployeeDetailJob from "./pages/new_employee/DetailJob.jsx";
+import Employee_Profile from "./pages/new_employee/Profile/Profile.jsx";
+import Employee_CreateProfile from "./pages/new_employee/CreateProfile.jsx";
+
+//================== NEW AUTH ===================================
+import New_Login from "./pages/Auth/renew_Login.jsx";
+import New_Register from "./pages/Auth/renew_Register.jsx";
 
 //layouts
 import MainLayout from "./layouts/main/index.jsx";
@@ -77,6 +83,8 @@ const router = createBrowserRouter([
 		loader: home_loader,
 		children: [{ path: "/jobs", element: <Jobs /> }],
 	},
+	{ path: "/login", element: <New_Login /> },
+	{ path: "/register", element: <New_Register /> },
 	{ path: "/auth/login", element: <Login />, action: LoginAction },
 	{ path: "/auth/register", element: <Register />, action: registerAction },
 	{ path: "/auth/logout", action: logout },
@@ -100,6 +108,16 @@ const router = createBrowserRouter([
 				element: <EmployeeDetailJob />,
 				loader: detail_job_loader,
 				action: detail_job_action,
+			},
+			{
+				path: "/main/profile",
+				element: <Employee_Profile />,
+				loader: employee_profile_loader,
+			},
+			{
+				path: "/main/create-profile",
+				element: <Employee_CreateProfile />,
+				loader: employee_profile_loader,
 			},
 		],
 	},
@@ -181,6 +199,11 @@ const router = createBrowserRouter([
 				loader: employee_myjob_loader,
 			},
 		],
+	},
+	{
+		path: "/main/employer",
+		element: <h1>hello</h1>,
+		loader: home_loader,
 	},
 ]);
 
